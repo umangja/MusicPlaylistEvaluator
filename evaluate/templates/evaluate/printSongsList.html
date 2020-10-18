@@ -1,0 +1,78 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load index %}
+{% load mathfilters %}
+
+
+
+{% block content %}
+
+    <h3 style="color:red;"> INFO: <br>
+     1. Please Rate how much random you find playlist not how much you liked it. <br>
+     2. Rate between 1-5 with <br> </h3> 
+     	<p>
+     		1 being something like S1 S1 S2 S2 S3 S3 (because it doesn't look random to human) <br>
+     		5 begin something like S1 S2 S3 S1 S2 S3 (because it looks random to humans)
+ 		</p>
+    <br>
+    <h3 style="color:DodgerBlue;" > Playlist Chosen  : {{ playlistName }} </h3>
+    <h3 style="color:DodgerBlue;"> Algorithm Chosen : {{ algoName }} </h3>
+
+    <br>
+
+    <form action="/saveAndShowSummary" method="POST">
+    {% csrf_token %}
+    {% for id in songsId %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">Song Title: {{ songsName|index:forloop.counter0 }}</a> <br>
+                <a class="mr-2" href="#">By: {{ songsSinger|index:forloop.counter0 }}</a> <br>
+                <a class="mr-2" href="#">In: {{ songsAlbum|index:forloop.counter0 }}</a> <br>
+            </div>
+
+            <br>
+
+            <audio controls>
+                <source src={{ songsLink|index:forloop.counter0 }} type="audio/mpeg"> Your browser does not support the audio tag.
+            </audio>
+    
+          </div>
+        </article>
+        
+
+        {% if forloop.counter|divisibleby:10 %}
+            {% with cur=forloop.counter|div:10  %}
+                {% with curStr=cur|stringformat:"s" %}
+                    {% with "rating"|add:curStr as name %}
+                    <article class="media content-section">
+                        <div class="media-body">
+                        <div>
+                            <label  for={{ name }}>Please Rate </label><br>
+                            <input type="number" id={{ name }} name={{ name }} required max=5 min =1> 
+                        </div>
+                        </div>
+                    </article>
+                    {% endwith %}
+                {% endwith %}
+            {% endwith %}
+        {% endif %} 
+    
+    {% endfor %}
+
+    {% comment %} <label for={{ name }}>Rate:</label><br> {% endcomment %}
+    <input type="hidden" id="playlistId" name="playlistId" value={{playlistId}}><br> 
+    <input type="hidden" id="algoId" name="algoId" value={{algoId}}><br> 
+    <input type="hidden" id="songsName" name="songsName" value={{songsName}}><br> 
+    <input type="hidden" id="songsId" name="songsId" value={{songsId}}><br> 
+    <input type="hidden" id="songs" name="songs" value={{songs}}><br> 
+
+    <input class="btn btn-outline-info" type="submit" value="Submit">
+    <br>
+    <br>
+    </form>
+
+
+{% endblock content %}             
+
+

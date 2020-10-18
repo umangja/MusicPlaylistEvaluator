@@ -1,0 +1,9 @@
+Site to view database :-    https://music-playlist-evaluator.herokuapp.com/admin
+
+
+admin username : admin
+
+Admin password : admin
+
+
+Imp:    -1 is used to show that particular value does not exist means we are not calculating that values. ( -1 indicates NULL value )

@@ -1,0 +1,36 @@
+{%extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    
+    <form method="POST">
+        <label for="playlists">Choose a Playlist:</label>
+        <select class="custom-select" id="playlists" name="playlists">
+            {% for playlist in playlists %}
+                <option value="{{ playlist.id }}">{{ playlist.playlistName }}</option>
+            {% endfor %}
+        </select>
+        </br></br>
+
+        <label for="algos">Choose a Algorithm:</label>
+        <select class="custom-select" id="algos" name="algos">
+            {% for algo in algos %}
+                <option value="{{ algo.id }}">{{ algo.algoName }}</option>
+            {% endfor %}
+        </select>
+
+        </br></br>
+
+        <input class="btn btn-outline-info"  type="submit">
+    </form>
+  
+
+
+
+
+
+
+
+
+
+{% endblock content %}
