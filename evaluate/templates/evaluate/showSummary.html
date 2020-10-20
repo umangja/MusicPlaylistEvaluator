@@ -51,9 +51,9 @@
     {% endfor %}
 
 
-    <div>Your average rating for the playlist {{ playlistName }} with shuffling algorithm {{ algoName }} : {{ avgrating }}</div>
+    <div>Your average rating for the playlist {{ playlistName }} with shuffling algorithm {{ algoName }} : {{ normalAverage }}</div>
 
-    <article class="media content-section">
+    {% comment %} <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">Stats</a> <br>
@@ -71,7 +71,7 @@
                 totalScore:{{totalScore}}</h6></h6>
     
           </div>
-    </article>
+    </article> {% endcomment %}
 
 
 

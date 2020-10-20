@@ -1,5 +1,9 @@
 {% extends "blog/base.html" %}
 {% block content %}
+
+    <h1>Blogs</h1>
+    <br><br><br>
+
     {% for post in posts %}
         <article class="media content-section">
           <div class="media-body">
@@ -13,38 +17,39 @@
         </article>
     {% endfor %}
 
-    <br><br><br>
-    <h1>Users Ratings</h1>
     
 
-    {% for rating in ratings %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ rating.userId.username }}</a>
-              <small class="text-muted">{{ rating.time|date:"F d, Y" }}</small>
+    
+    {% if user.is_authenticated %} {% if user.get_username == "admin" %}
+      {% for rating in ratings %}
+          <article class="media content-section">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ rating.userId.username }}</a>
+                <small class="text-muted">{{ rating.time|date:"F d, Y" }}</small>
+              </div>
+              <h6 class="mr-2"> Playlist Name : {{ rating.playlistId.playlistName }} </h6>
+              <h6> Algorithm Name : {{ rating.algoId.algoName }} </h6>
+              <h6> Ratings :
+                {{ rating.R1 }}
+                {{ rating.R2 }}
+                {{ rating.R3 }}
+                {{ rating.R4 }}
+                {{ rating.R5 }}
+              </h6> 
+              <h6>normalAverage :      {{rating.average1  }}</br></br>
+              WeightedAverage1:{{rating.average2  }}</br></br>
+              WeightedAverage2:{{rating.average3  }}</br></br>
+              std:{{rating.standardDeviation  }}</br></br>
+              var:{{rating.variance  }}</br></br>
+              DistributionScore:{{rating.distributionScore  }}</br></br>
+              CorrelationScore:{{rating.correlationScore  }}</br></br>
+              totalScore:{{rating.totalScore}}</h6>
+              </h6>             
             </div>
-            <h6 class="mr-2"> Playlist Name : {{ rating.playlistId.playlistName }} </h6>
-            <h6> Algorithm Name : {{ rating.algoId.algoName }} </h6>
-            <h6> Ratings :
-              {{ rating.R1 }}
-              {{ rating.R2 }}
-              {{ rating.R3 }}
-              {{ rating.R4 }}
-              {{ rating.R5 }}
-            </h6> 
-            <h6>normalAverage :      {{rating.average1  }}</br></br>
-            WeightedAverage1:{{rating.average2  }}</br></br>
-            WeightedAverage2:{{rating.average3  }}</br></br>
-            std:{{rating.standardDeviation  }}</br></br>
-            var:{{rating.variance  }}</br></br>
-            DistributionScore:{{rating.distributionScore  }}</br></br>
-            CorrelationScore:{{rating.correlationScore  }}</br></br>
-            totalScore:{{rating.totalScore}}</h6>
-            </h6>             
-          </div>
-        </article>
-    {% endfor %}
+          </article>
+      {% endfor %}
+    {% endif %} {% endif %}
 
 
 

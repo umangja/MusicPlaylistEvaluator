@@ -10,6 +10,7 @@ from ShuflingAlgos.Fisher_yates_Repeated import *
 from ShuflingAlgos.Elitist import *
 from ShuflingAlgos.Elitist_Repeat import *
 from .evaluationFunctions import *
+from users.models import TIMELIMIT
 user = get_user_model()
 
 songsName=["Go back to evalate page and start again"]
@@ -97,7 +98,8 @@ def evaluate(request):
         print(songs)
         print(songsName)
         print(songsId)
-        return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId })
+        timeLimit = int(TIMELIMIT.objects.all()[0].timeLimit)
+        return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit })
 
     else:
         playlists = Playlists.objects.all()
@@ -167,8 +169,9 @@ def saveAndShowSummary(request):
             ratingId.save()
             rating = Ratings.objects.get(id=ratingId.id)
         else:
-            rating = Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)
+            rating = Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)[0]
 
+        print(rating.R1)
 
         # return render(request,'evaluate/showSummary.html',{'rating':rating,'songs':songs,'songsName':songsName,'songsId':songsId})
         return render(request,'evaluate/showSummary.html',{'rating':rating,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName, 'algoId':algoId,'songsName':songsName,'songsId':songsId, 'algoName': algo.algoName , 'playlistName': playlist.playlistName,

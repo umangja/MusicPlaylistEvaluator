@@ -3,17 +3,19 @@
 {% load index %}
 {% load mathfilters %}
 
-
-
 {% block content %}
+
+
 
     <h3 style="color:red;"> INFO: <br>
      1. Please Rate how much random you find playlist not how much you liked it. <br>
-     2. Rate between 1-5 with <br> </h3> 
+     2. Rate between 1-5 with <br> 
+     3. only first {{timeLimit}} seconds of songs will be played. <br> </h3> 
      	<p>
      		1 being something like S1 S1 S2 S2 S3 S3 (because it doesn't look random to human) <br>
      		5 begin something like S1 S2 S3 S1 S2 S3 (because it looks random to humans)
  		</p>
+
     <br>
     <h3 style="color:DodgerBlue;" > Playlist Chosen  : {{ playlistName }} </h3>
     <h3 style="color:DodgerBlue;"> Algorithm Chosen : {{ algoName }} </h3>
@@ -33,7 +35,7 @@
 
             <br>
 
-            <audio controls>
+            <audio controls id="aud{{forloop.counter0}}">
                 <source src={{ songsLink|index:forloop.counter0 }} type="audio/mpeg"> Your browser does not support the audio tag.
             </audio>
     
@@ -73,6 +75,50 @@
     </form>
 
 
-{% endblock content %}             
+<script>
+    var songsId = {{songsId}};
+    var aud = [];
+    var index;
+    var timeLimit = parseInt({{timeLimit}})
+    console.log(timeLimit)
+    for( index=0;index<songsId.length;index++ )
+    {
+        var tag = "aud".concat(index);
+        aud.push(document.getElementById(tag));
+    }
+
+    console.log(aud);
+   
+    for( index=0;index<aud.length;index++ )
+    {
+        console.log(aud[index]);
+        aud[index].addEventListener("timeupdate", function(music) { 
+
+            if(parseInt(music.target.currentTime)>=timeLimit)
+            {
+                music.target.load();
+            }
+            });
+    }
+
+
+
+</script>
+
+
+{% endblock content %}      
+
+
+
+
+
+
+
+
+                      {% comment %} setTimeout(function(){
+                            aud.load();
+                            alert("Audio with {{id}} Stop Successfully");
+                        },
+                        4000); {% endcomment %}
 
 

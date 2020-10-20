@@ -9,6 +9,8 @@ from django.contrib.auth import views as auth_views
 app_name = 'users'
 
 urlpatterns = [
-    path('showAllRating',views.showAllRating,name='showAllRating')
+    path('showAllRating',views.showAllRating,name='showAllRating'),
+    path('updateTimeLimit',views.updateTimeLimit,name='updateTimeLimit'),
+    path('showAllRatingForParticularUser',views.showAllRatingForParticularUser,name='showAllRatingForParticularUser')
 ]
 
