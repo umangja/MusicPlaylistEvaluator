@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('evaluate', views.evaluate, name='evaluate'),
-    path('saveAndShowSummary',views.saveAndShowSummary,name='saveAndShowSummary')
+    path('saveRatings',views.saveRatings,name='saveRatings'),
+    path('showSummary',views.showSummary,name='showSummary')
 ]

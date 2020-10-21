@@ -107,7 +107,7 @@ def evaluate(request):
         return render(request, 'evaluate/selectPlaylistAndAlgo.html',{'playlists':playlists,'algos':algos})
 
 @login_required
-def saveAndShowSummary(request):
+def saveRatings(request):
     if request.method == 'POST':
 
         rating1 = request.POST.get('rating1.0',0)
@@ -165,24 +165,51 @@ def saveAndShowSummary(request):
 
         ratingId  = Ratings(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)
         rating =  Ratings.objects.none()
-        if not Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore).exists():
-            ratingId.save()
-            rating = Ratings.objects.get(id=ratingId.id)
-        else:
-            rating = Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)[0]
+        # if not Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore).exists():
+        #     ratingId.save()
+        #     rating = Ratings.objects.get(id=ratingId.id)
+        # else:
+        #     rating = Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)[0]
+
+        
+
+        ratingId.save()
+
+        request.session['ratingId'] = ratingId.id
+        rating = Ratings.objects.get(id=ratingId.id)
+
+        pos = 1
+        for songId in songsId:
+            song = Songs.objects.get(id=songId)
+            order = Ordering(songId=song,ratingId=rating,position=pos)
+            order.save()
+            pos=pos+1
+
 
         print(rating.R1)
 
+        return redirect('/showSummary')
         # return render(request,'evaluate/showSummary.html',{'rating':rating,'songs':songs,'songsName':songsName,'songsId':songsId})
-        return render(request,'evaluate/showSummary.html',{'rating':rating,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName, 'algoId':algoId,'songsName':songsName,'songsId':songsId, 'algoName': algo.algoName , 'playlistName': playlist.playlistName,
-                                                           'normalAverage' : normalAverage,
-                                                           'WeightedAverage1':WeightedAverage1,
-                                                           'WeightedAverage2':WeightedAverage2,
-                                                           'std':std,
-                                                           'var':var,
-                                                           'DistributionScore':DistributionScore,
-                                                           'CorrelationScore':CorrelationScore,
-                                                           'totalScore':totalScore})
+        # return render(request,'evaluate/showSummary.html',{'rating':rating,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName, 'algoId':algoId,'songsName':songsName,'songsId':songsId, 'algoName': algo.algoName , 'playlistName': playlist.playlistName,
+        #                                                    'normalAverage' : normalAverage,
+        #                                                    'WeightedAverage1':WeightedAverage1,
+        #                                                    'WeightedAverage2':WeightedAverage2,
+        #                                                    'std':std,
+        #                                                    'var':var,
+        #                                                    'DistributionScore':DistributionScore,
+        #                                                    'CorrelationScore':CorrelationScore,
+        #                                                    'totalScore':totalScore})
 
     else:
         return redirect('/')
+
+
+
+@login_required
+def showSummary(request):
+    rating   = Ratings.objects.get(id=int(request.session['ratingId']))
+    ordering = Ordering.objects.filter(ratingId=rating).order_by('position')
+    print(rating)
+    print(ordering)
+    print()
+    return render(request,'evaluate/showSummary.html',{'rating':rating,'ordering':ordering})

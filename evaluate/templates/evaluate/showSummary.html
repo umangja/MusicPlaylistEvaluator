@@ -9,19 +9,15 @@
 
     {% comment %} <form action="/saveAndShowSummary" method="POST"> {% endcomment %}
     {% comment %} {% csrf_token %} {% endcomment %}
-     {% for id in songsId %}
+     {% for order in ordering %}
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="#">Song Title: {{ songsName|index:forloop.counter0 }}</a> <br>
-                <!-- <a class="mr-2" href="#">By: {{ songsSinger|index:forloop.counter0 }}</a> <br> -->
-                <!-- <a class="mr-2" href="#">In: {{ songsAlbum|index:forloop.counter0 }}</a> <br> -->
+                <a class="mr-2" href="#">Song Title: {{ order.songId.songTitle }}</a> <br>
             </div>
-
             <br>
-
             <audio controls>
-                <source src={{ songsLink|index:forloop.counter0 }} type="audio/mpeg"> Your browser does not support the audio tag.
+                <source src={{ order.songId.link }} type="audio/mpeg"> Your browser does not support the audio tag.
             </audio>
     
           </div>
@@ -51,7 +47,7 @@
     {% endfor %}
 
 
-    <div>Your average rating for the playlist {{ playlistName }} with shuffling algorithm {{ algoName }} : {{ normalAverage }}</div>
+    <div>Your average rating for the playlist {{ rating.playlistId.playlistName }} with shuffling algorithm {{ rating.algoId.algoName }} : {{ rating.average1 }}</div>
 
     {% comment %} <article class="media content-section">
           <div class="media-body">
@@ -85,3 +81,6 @@
 {% endblock content %}             
 
 
+                {% comment %} <a class="mr-2" href="#">Song Title: {{ songsName|index:forloop.counter0 }}</a> <br>
+                <a class="mr-2" href="#">By: {{ songsSinger|index:forloop.counter0 }}</a> <br>
+                <a class="mr-2" href="#">In: {{ songsAlbum|index:forloop.counter0 }}</a> <br>  {% endcomment %}

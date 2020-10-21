@@ -22,7 +22,7 @@
 
     <br>
 
-    <form action="/saveAndShowSummary" method="POST">
+    <form action="/saveRatings" method="POST">
     {% csrf_token %}
     {% for id in songsId %}
         <article class="media content-section">
