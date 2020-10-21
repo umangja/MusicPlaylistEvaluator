@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -24,7 +23,7 @@ class Playlists(models.Model):
     playlistName = models.CharField(max_length=50,blank=False)
 
     def __str__(self):
-        return str(self.id) 
+        return str(self.id)
 
 class SongsInPlaylist(models.Model):
     playlistId = models.ForeignKey(Playlists, on_delete=models.CASCADE)
@@ -58,3 +57,14 @@ class Ratings(models.Model):
     time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return str(self.id) 
+
+
+
+class Ordering(models.Model):
+    ratingId = models.ForeignKey("Ratings", on_delete=models.CASCADE)
+    songId   = models.ForeignKey("Songs" ,on_delete=models.CASCADE)
+    position = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return str(self.id)
+
