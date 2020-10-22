@@ -79,16 +79,40 @@ WSGI_APPLICATION = 'MusicPlayer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE' : 'django.db.backends.sqlite3',
+#         'NAME'   : str(BASE_DIR /'M'),
+#         'HOST'   : '127.0.0.1',
+#         'PORT'   : '3306',
+#         'USER'   : 'umang',
+#         'PASSWORD' : 'umangjain'
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'myproject',
+#         'USER': 'umangjain',
+#         'PASSWORD': 'umangjain',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE' : 'django.db.backends.sqlite3',
-        'NAME'   : str(BASE_DIR /'M'),
-        'HOST'   : '127.0.0.1',
-        'PORT'   : '3306',
-        'USER'   : 'umang',
-        'PASSWORD' : 'umangjain'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'daoedq1v0tcdh8',
+        'USER': 'nswllxzlcfdaoa',
+        'PASSWORD': '595e379434773e9197adaa668ae9cd6e9a8ddab09dda0b75212d057fde80845c',
+        'HOST': 'ec2-18-211-86-133.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation
