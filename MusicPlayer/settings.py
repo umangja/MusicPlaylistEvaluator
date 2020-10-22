@@ -90,27 +90,27 @@ WSGI_APPLICATION = 'MusicPlayer.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'myproject',
-#         'USER': 'umangjain',
-#         'PASSWORD': 'umangjain',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd7tq0a5eu6rdb2',
-        'USER': 'ohecgsqhtavrpy',
-        'PASSWORD': '5ab3354231823c5f5d4c1543ed57eacf50eba34dfe4d90928388828bcd6721d9',
-        'HOST': 'ec2-54-82-208-124.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': 'myproject',
+        'USER': 'umangjain',
+        'PASSWORD': 'umangjain',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd7tq0a5eu6rdb2',
+#         'USER': 'ohecgsqhtavrpy',
+#         'PASSWORD': '5ab3354231823c5f5d4c1543ed57eacf50eba34dfe4d90928388828bcd6721d9',
+#         'HOST': 'ec2-54-82-208-124.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # pg_restore --verbose --clean --no-acl --no-owner -h ec2-54-82-208-124.compute-1.amazonaws.com -U ohecgsqhtavrpy -d d7tq0a5eu6rdb2 db1
 
