@@ -104,15 +104,15 @@ WSGI_APPLICATION = 'MusicPlayer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'daoedq1v0tcdh8',
-        'USER': 'nswllxzlcfdaoa',
-        'PASSWORD': '595e379434773e9197adaa668ae9cd6e9a8ddab09dda0b75212d057fde80845c',
-        'HOST': 'ec2-18-211-86-133.compute-1.amazonaws.com',
+        'NAME': 'd7tq0a5eu6rdb2',
+        'USER': 'ohecgsqhtavrpy',
+        'PASSWORD': '5ab3354231823c5f5d4c1543ed57eacf50eba34dfe4d90928388828bcd6721d9',
+        'HOST': 'ec2-54-82-208-124.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
 
-# pg_restore --verbose --clean --no-acl --no-owner -h ec2-18-211-86-133.compute-1.amazonaws.com -U nswllxzlcfdaoa -d daoedq1v0tcdh8 db1
+# pg_restore --verbose --clean --no-acl --no-owner -h ec2-54-82-208-124.compute-1.amazonaws.com -U ohecgsqhtavrpy -d d7tq0a5eu6rdb2 db1
 
 
 
