@@ -112,6 +112,8 @@ DATABASES = {
     }
 }
 
+# pg_restore --verbose --clean --no-acl --no-owner -h ec2-18-211-86-133.compute-1.amazonaws.com -U nswllxzlcfdaoa -d daoedq1v0tcdh8 db1
+
 
 
 
