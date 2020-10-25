@@ -95,3 +95,28 @@ def updateTimeLimit(request):
         allUsers   = user.objects.all(); 
         return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'allUsers':allUsers})
 
+
+
+# @login_required
+# def updateSetSize(request):
+#     if request.method == 'POST':
+#         newTimeLimit = int(request.POST.get('setsize'))
+#         if newTimeLimit<5 or newTimeLimit>300 :
+#             mess = "Time Limit should be >=5 and <=300"
+#             TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
+#             allUsers   = user.objects.all(); 
+#             return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
+#         else:
+#             TIME_LIMIT=newTimeLimit
+#             timelimit = TIMELIMIT.objects.all()[0]
+#             timelimit.timeLimit=newTimeLimit
+#             timelimit.save()
+#             mess = "Time Limit Updated Succesfully"
+#             allUsers   = user.objects.all(); 
+#             return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
+
+#     else:
+#         TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
+#         allUsers   = user.objects.all(); 
+#         return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'allUsers':allUsers})
+

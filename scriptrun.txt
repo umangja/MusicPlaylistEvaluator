@@ -1,5 +1,2 @@
 1. python3 manage.py shell
-
-	in the shell run the following command
-
 2. exec(open('script.py').read())

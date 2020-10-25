@@ -10,7 +10,7 @@ from ShuflingAlgos.Fisher_yates_Repeated import *
 from ShuflingAlgos.Elitist import *
 from ShuflingAlgos.Elitist_Repeat import *
 from .evaluationFunctions import *
-from users.models import TIMELIMIT
+from users.models import TIMELIMIT,SIZES
 user = get_user_model()
 
 songsName=["Go back to evalate page and start again"]
@@ -19,87 +19,8 @@ songsAlbum=["Album"]
 songsSinger=["Singer"]
 songsLink=['Link']
 
-# def home(request):  
-#     if request.user.is_authenticated:
-#         return render(request, 'users/profile.html')
-#     else:
-#         context = { 'posts': Post.objects.all() }
-#         return render(request, 'blog/home.html', context)
-
-
-# def about(request):
-#     return render(request, 'blog/about.html', {'title': 'About'})
-
-
-
-
-
 @login_required
 def evaluate(request):
-    # if request.method == 'POST':
-    #     playlistId = request.POST['playlists']
-    #     algoId     = int(request.POST['algos'])
-
-    #     playlistName = Playlists.objects.get(id=int(playlistId)).playlistName
-    #     algoName     = Algos.objects.get(id=algoId).algoName
-
-    #     # songs = Songs.objects.all()
-    #     # print(songs)
-    #     # print(songs[1].songSinger)
-
-
-    #     songsName.clear()
-    #     songsId.clear()
-    #     songsAlbum.clear()
-    #     songsSinger.clear()
-    #     songsLink.clear()
-
-    #     songIds = SongsInPlaylist.objects.select_related().filter(playlistId=playlistId)
-    #     songs = Songs.objects.none()
-    #     for song in songIds:
-    #         songIdInt = str(song.songId)
-    #         singleSong = Songs.objects.filter(id=int(songIdInt))
-    #         songs|=singleSong
-
-    #     tempSongIds=[]
-    #     for song in songs:
-    #         curSongId=song.id
-    #         tempSongIds.append(curSongId)
-
-    #     print(tempSongIds)
-
-    #     if algoId == 2:
-    #        tempSongIds=Fisher_yates(tempSongIds)
-    #     elif algoId == 1:
-    #         tempSongIds=Etilist_Shuffle(tempSongIds)
-    #     elif algoId == 4:
-    #         tempSongIds=Fisher_yates_Repeated(tempSongIds)
-    #     elif algoId == 3:
-    #         tempSongIds=Etilist_Shuffle_repeated(tempSongIds)
-            
-
-    #     print(tempSongIds)
-
-    #     for id in tempSongIds:
-    #         singleSong = Songs.objects.filter(id=id)
-
-    #         curSongName=singleSong[0].songTitle
-    #         curSongId=singleSong[0].id
-    #         curSongAlbum=singleSong[0].songAlbum
-    #         curSongSinger=singleSong[0].songSinger
-    #         curSongLink=singleSong[0].link
-            
-    #         songsName.append(curSongName)
-    #         songsId.append(curSongId)
-    #         songsAlbum.append(curSongAlbum)
-    #         songsSinger.append(curSongSinger)
-    #         songsLink.append(curSongLink)
-
-    #     print(songs)
-    #     print(songsName)
-    #     print(songsId)
-    #     timeLimit = int(TIMELIMIT.objects.all()[0].timeLimit)
-    #     return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit })
     if request.method == 'POST':
         playlistId = request.POST['playlists']
         algoId     = int(request.POST['algos'])
@@ -118,8 +39,9 @@ def evaluate(request):
         songsSinger.clear()
         songsLink.clear()
 
-        SampleSize = int(TIMELIMIT.objects.all()[1].timeLimit)
-        SetSize = int(TIMELIMIT.objects.all()[0].timeLimit)
+        
+        SetSize = int(SIZES.objects.all()[0].setSize)
+        playlistSize = int(SIZES.objects.all()[0].playlistSize)
         songs = Songs.objects.all()[:SetSize]
 
         tempSongIds=[]
@@ -140,7 +62,7 @@ def evaluate(request):
             
 
         print(tempSongIds)
-        tempSongIds = tempSongIds[:SampleSize]
+        tempSongIds = tempSongIds[:playlistSize]
 
         for id in tempSongIds:
             singleSong = Songs.objects.filter(id=id)
@@ -160,8 +82,8 @@ def evaluate(request):
         # print(songs)
         # print(songsName)
         # print(songsId)
-        timeLimit = int(TIMELIMIT.objects.all()[2].timeLimit)
-        print(SampleSize)
+        timeLimit = int(TIMELIMIT.objects.all()[0].timeLimit)
+        print(playlistSize)
         print(SetSize)
         return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit })
 
@@ -277,3 +199,98 @@ def showSummary(request):
     print(ordering)
     print()
     return render(request,'evaluate/showSummary.html',{'rating':rating,'ordering':ordering})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def home(request):  
+#     if request.user.is_authenticated:
+#         return render(request, 'users/profile.html')
+#     else:
+#         context = { 'posts': Post.objects.all() }
+#         return render(request, 'blog/home.html', context)
+
+
+# def about(request):
+#     return render(request, 'blog/about.html', {'title': 'About'})
+
+  # if request.method == 'POST':
+    #     playlistId = request.POST['playlists']
+    #     algoId     = int(request.POST['algos'])
+
+    #     playlistName = Playlists.objects.get(id=int(playlistId)).playlistName
+    #     algoName     = Algos.objects.get(id=algoId).algoName
+
+    #     # songs = Songs.objects.all()
+    #     # print(songs)
+    #     # print(songs[1].songSinger)
+
+
+    #     songsName.clear()
+    #     songsId.clear()
+    #     songsAlbum.clear()
+    #     songsSinger.clear()
+    #     songsLink.clear()
+
+    #     songIds = SongsInPlaylist.objects.select_related().filter(playlistId=playlistId)
+    #     songs = Songs.objects.none()
+    #     for song in songIds:
+    #         songIdInt = str(song.songId)
+    #         singleSong = Songs.objects.filter(id=int(songIdInt))
+    #         songs|=singleSong
+
+    #     tempSongIds=[]
+    #     for song in songs:
+    #         curSongId=song.id
+    #         tempSongIds.append(curSongId)
+
+    #     print(tempSongIds)
+
+    #     if algoId == 2:
+    #        tempSongIds=Fisher_yates(tempSongIds)
+    #     elif algoId == 1:
+    #         tempSongIds=Etilist_Shuffle(tempSongIds)
+    #     elif algoId == 4:
+    #         tempSongIds=Fisher_yates_Repeated(tempSongIds)
+    #     elif algoId == 3:
+    #         tempSongIds=Etilist_Shuffle_repeated(tempSongIds)
+            
+
+    #     print(tempSongIds)
+
+    #     for id in tempSongIds:
+    #         singleSong = Songs.objects.filter(id=id)
+
+    #         curSongName=singleSong[0].songTitle
+    #         curSongId=singleSong[0].id
+    #         curSongAlbum=singleSong[0].songAlbum
+    #         curSongSinger=singleSong[0].songSinger
+    #         curSongLink=singleSong[0].link
+            
+    #         songsName.append(curSongName)
+    #         songsId.append(curSongId)
+    #         songsAlbum.append(curSongAlbum)
+    #         songsSinger.append(curSongSinger)
+    #         songsLink.append(curSongLink)
+
+    #     print(songs)
+    #     print(songsName)
+    #     print(songsId)
+    #     timeLimit = int(TIMELIMIT.objects.all()[0].timeLimit)
+    #     return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit })
+

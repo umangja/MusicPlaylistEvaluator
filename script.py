@@ -1,10 +1,10 @@
 import json
 from evaluate.models import Songs
 
-
 Songs.objects.all().delete()
 with open('data.json') as json_file:
 	dat = json.load(json_file)
+
 i=0
 for item in dat:
 	# print(i)

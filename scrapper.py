@@ -97,11 +97,4 @@ class bestwap(scrapy.Spider):
 			json.dump(data, json_file,indent = 4,sort_keys=True)
 
 
-        
-
-		
-
-
-		
-
 
