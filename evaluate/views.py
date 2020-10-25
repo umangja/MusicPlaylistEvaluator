@@ -102,6 +102,16 @@ def saveRatings(request):
         rating4 = request.POST.get('rating4.0',0)
         rating5 = request.POST.get('rating5.0',0)
 
+
+        rating6 = request.POST.get('rating6.0',0)
+        rating7 = request.POST.get('rating7.0',0)
+        rating8 = request.POST.get('rating8.0',0)
+        rating9 = request.POST.get('rating9.0',0)
+        rating10 = request.POST.get('rating10.0',0)
+
+
+
+
         playlistId = request.POST['playlistId']
         algoId     = request.POST['algoId']
 
@@ -149,7 +159,7 @@ def saveRatings(request):
         totalScore       = findTotalScore(normalAverage,DistributionScore)
         
 
-        ratingId  = Ratings(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)
+        ratingId  = Ratings(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5, R6=rating6, R7=rating7, R8=rating8, R9=rating9, R10=rating10 ,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore)
         rating =  Ratings.objects.none()
         # if not Ratings.objects.filter(playlistId=playlist,userId=current_user,algoId=algo, R1=rating1, R2=rating2, R3=rating3, R4=rating4, R5=rating5,average1=normalAverage,average2=WeightedAverage1,average3=WeightedAverage2,variance=var,standardDeviation=std,distributionScore=DistributionScore,correlationScore=CorrelationScore,totalScore=totalScore).exists():
         #     ratingId.save()

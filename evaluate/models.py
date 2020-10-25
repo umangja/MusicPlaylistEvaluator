@@ -42,6 +42,14 @@ class Ratings(models.Model):
     R4 = models.IntegerField(default=-1)
     R5 = models.IntegerField(default=-1)
 
+    R6 = models.IntegerField(default=-1)
+    R7 = models.IntegerField(default=-1)
+    R8 = models.IntegerField(default=-1)
+    R9 = models.IntegerField(default=-1)
+    R10 = models.IntegerField(default=-1)
+
+
+
     average1 = models.FloatField(default=-1)
     average2 = models.FloatField(default=-1)
     average3 = models.FloatField(default=-1)
