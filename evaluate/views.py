@@ -147,7 +147,7 @@ def saveRatings(request):
             return redirect('/')         
         
         
-        ratinglist = [int(rating1),int(rating2),int(rating3), int(rating4), int(rating5)]
+        ratinglist = [int(rating1),int(rating2),int(rating3), int(rating4), int(rating5),int(rating6),int(rating7),int(rating8),int(rating9),int(rating10) ]
         print(ratinglist)
         normalAverage = findNormalAverage(ratinglist)
         WeightedAverage1 = findWeightedAverage1(ratinglist)
