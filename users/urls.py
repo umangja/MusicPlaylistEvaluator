@@ -10,7 +10,10 @@ app_name = 'users'
 
 urlpatterns = [
     path('showAllRating',views.showAllRating,name='showAllRating'),
+    path('showAllRatingForParticularUser',views.showAllRatingForParticularUser,name='showAllRatingForParticularUser'),
+    path('adminSetting',views.adminSetting,name='adminSetting'),
     path('updateTimeLimit',views.updateTimeLimit,name='updateTimeLimit'),
-    path('showAllRatingForParticularUser',views.showAllRatingForParticularUser,name='showAllRatingForParticularUser')
+    path('updateSetSize',views.updateSetSize,name='updateSetSize'),
+    path('updatePlaylistSize',views.updatePlaylistSize,name='updatePlaylistSize'),
 ]
 

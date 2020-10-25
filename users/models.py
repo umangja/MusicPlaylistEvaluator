@@ -1,7 +1,4 @@
 from django.db import models
-from django.db import models
-from django.utils import timezone
-
 
 class TIMELIMIT(models.Model):
     timeLimit =models.IntegerField(null=False,default=10)

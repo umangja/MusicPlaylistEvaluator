@@ -1,0 +1,82 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+   {% if mess %} <h2> {{mess}} </h2> <br><br> {% endif %}
+
+
+    <div class="content-section">
+      
+      <div class="media">
+        {% comment %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+
+      {% if user.is_authenticated %} {% if user.get_username == "admin" %}
+    
+        <form id="updateTimeLimit" method="POST" action="/updateTimeLimit">
+          {% csrf_token %}
+
+          <div class="form-group">
+              Time Limit:
+          </div>
+          <div class="form-group">
+              <input type="numbers" id="timeLimit"  name="timeLimit" value="{{timeLimit}}" required min = 5 max = 300 >
+          </div>
+
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update Time Limit</button>
+          </div>
+
+        </form>
+
+
+
+        <form id="updateSetSize" method="POST" action="/updateSetSize">
+          {% csrf_token %}
+
+          <div class="form-group">
+              Set Size:
+          </div>
+          <div class="form-group">
+              <input type="numbers" id="setSize"  name="setSize" value="{{setSize}}" required  >
+          </div>
+
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update Set Size</button>
+          </div>
+
+        </form>
+
+
+         <form id="updatePlaylistSize" method="POST" action="/updatePlaylistSize">
+          {% csrf_token %}
+
+          <div class="form-group">
+              Playlist Size:
+          </div>
+          <div class="form-group">
+              <input type="numbers" id="playlistSize"  name="playlistSize" value="{{playlistSize}}" required  >
+          </div>
+
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update Playlist Size</button>
+          </div>
+
+        </form>
+
+
+
+
+
+
+
+
+
+      {% endif %}{% endif %}
+
+    </div>
+{% endblock content %}

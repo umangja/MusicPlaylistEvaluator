@@ -42,7 +42,7 @@ def evaluate(request):
         
         SetSize = int(SIZES.objects.all()[0].setSize)
         playlistSize = int(SIZES.objects.all()[0].playlistSize)
-        songs = Songs.objects.all()[:SetSize]
+        songs = Songs.objects.all().order_by('?')[:SetSize]
 
         tempSongIds=[]
         for song in songs:

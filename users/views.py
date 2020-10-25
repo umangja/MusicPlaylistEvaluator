@@ -72,51 +72,95 @@ def showAllRatingForParticularUser(request):
         TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
         return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT})
 
+
+@login_required
+def adminSetting(request):
+    TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+    SETSIZE   = SIZES.objects.all()[0].setSize
+    PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+    return render(request, 'users/settings.html',{'timeLimit':TIMELIMITs,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+
+
 @login_required
 def updateTimeLimit(request):
     if request.method == 'POST':
         newTimeLimit = int(request.POST.get('timeLimit'))
         if newTimeLimit<5 or newTimeLimit>300 :
             mess = "Time Limit should be >=5 and <=300"
-            TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
-            allUsers   = user.objects.all(); 
-            return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
         else:
             TIME_LIMIT=newTimeLimit
             timelimit = TIMELIMIT.objects.all()[0]
             timelimit.timeLimit=newTimeLimit
             timelimit.save()
             mess = "Time Limit Updated Succesfully"
-            allUsers   = user.objects.all(); 
-            return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+    else:
+        TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+        SETSIZE   = SIZES.objects.all()[0].setSize
+        PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+
+
+
+
+@login_required
+def updatePlaylistSize(request):
+    if request.method == 'POST':
+        newPlaylistSize = int(request.POST.get('playlistSize'))
+        if newPlaylistSize<10 or newPlaylistSize>100 or (newPlaylistSize%10)!=0 :
+            mess = "playlist size should be >=10 and <=100 and multiple of 10"
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+        else:
+            siz = SIZES.objects.all()[0]
+            siz.playlistSize=newPlaylistSize
+            siz.save()
+            mess = "Playlist Size Updated Succesfully"
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
 
     else:
-        TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
-        allUsers   = user.objects.all(); 
-        return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'allUsers':allUsers})
+        TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+        SETSIZE   = SIZES.objects.all()[0].setSize
+        PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
 
 
 
-# @login_required
-# def updateSetSize(request):
-#     if request.method == 'POST':
-#         newTimeLimit = int(request.POST.get('setsize'))
-#         if newTimeLimit<5 or newTimeLimit>300 :
-#             mess = "Time Limit should be >=5 and <=300"
-#             TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
-#             allUsers   = user.objects.all(); 
-#             return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
-#         else:
-#             TIME_LIMIT=newTimeLimit
-#             timelimit = TIMELIMIT.objects.all()[0]
-#             timelimit.timeLimit=newTimeLimit
-#             timelimit.save()
-#             mess = "Time Limit Updated Succesfully"
-#             allUsers   = user.objects.all(); 
-#             return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'mess':mess,'allUsers':allUsers})
 
-#     else:
-#         TIME_LIMIT = int(TIMELIMIT.objects.all()[0].timeLimit)
-#         allUsers   = user.objects.all(); 
-#         return render(request, 'users/profile.html',{'timeLimit':TIME_LIMIT,'allUsers':allUsers})
+@login_required
+def updateSetSize(request):
+    if request.method == 'POST':
+        newSetSize = int(request.POST.get('setSize'))
+        if newSetSize<10 or newSetSize>3500  :
+            mess = "Set Size should be >=10 and <=3500"
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+        else:
+            siz = SIZES.objects.all()[0]
+            siz.setSize=newSetSize
+            siz.save()
+            mess = "Set size Updated Succesfully"
+            TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+            SETSIZE   = SIZES.objects.all()[0].setSize
+            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
 
+    else:
+        TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
+        SETSIZE   = SIZES.objects.all()[0].setSize
+        PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})

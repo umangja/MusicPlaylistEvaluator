@@ -37,9 +37,11 @@
       <a class="btn btn-outline-info" href="{% url 'users:showAllRating' %}">View Everyones's Ratings</a> 
       <br><br>
      
+      <a class="btn btn-outline-info" href="{% url 'users:adminSetting' %}">Settings</a> 
+      <br><br>
 
      
-     
+{% comment %}      
         <form id="updateTimeLimit" method="POST" action="/updateTimeLimit">
           {% csrf_token %}
 
@@ -54,7 +56,7 @@
               <button class="btn btn-outline-info" type="submit">Update Time Limit</button>
           </div>
 
-        </form>
+        </form> {% endcomment %}
 
 
       <form method="POST" id="showAllRatingForParticularUser" action="/showAllRatingForParticularUser">
