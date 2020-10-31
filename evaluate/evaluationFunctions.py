@@ -6,7 +6,7 @@ def findNormalAverage(ratings):
         s = 0
         avgrating = 0
         for i in ratings:
-            if(i!=0):
+            if(i>0):
                 s += i
                 cnt+=1
         if cnt!=0: 
@@ -15,7 +15,7 @@ def findNormalAverage(ratings):
 
 
 def findWeightedAverage1(ratings):
-    ratings = [rating for rating in ratings if rating != 0]
+    ratings = [rating for rating in ratings if rating > 0]
     print(ratings)
     if len(ratings)!=0:
         sum    = 0
@@ -28,11 +28,11 @@ def findWeightedAverage1(ratings):
 
         return sum/total
     else: 
-        return -1
+        return 0
 
 
 def findWeightedAverage2(ratings):
-    ratings = [rating for rating in ratings if rating != 0]
+    ratings = [rating for rating in ratings if rating > 0]
     if len(ratings)!=0:
         sum    = 0
         weight = 1
@@ -44,9 +44,10 @@ def findWeightedAverage2(ratings):
 
         return sum/total
     else:
-         return -1
+         return 0
 
 def findStandardDeviationAndVariance(ratings):
+    ratings = [rating for rating in ratings if rating > 0]
     return {'std': np.std(ratings), 'var': np.var(ratings)}
 
 def normalize(value,minValue=1,maxValue=5):
@@ -70,7 +71,7 @@ def findDistributionScore(songs):
         maxValue = (totalSongs-totalDifferentSongs+1)/E+1
         return sum/maxValue
     else:
-         return -1
+         return 0
 
 
 def findCorrelationScore(songs):
@@ -78,6 +79,9 @@ def findCorrelationScore(songs):
 
 # avg is in 0-1, distributionScore is in 0-1, correlation should be in 0-1
 def findTotalScore(avg,distributionScore,CorrelationScore=-1):
+    avg = normalize(avg)
+    if distributionScore >1 or distributionScore < 0 :
+        distributionScore = normalize(distributionScore)
     if CorrelationScore==-1:
         return (0.8)*avg+(0.2)*distributionScore
     else:

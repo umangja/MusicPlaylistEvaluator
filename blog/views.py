@@ -15,7 +15,7 @@ def home(request):
 
     Siz = SIZES.objects.all()
     if Siz.count() == 0:
-        Sizes = SIZES(setSize=1000,playlistSize=50)
+        Sizes = SIZES(setSize=1000,playlistSize=50,GapSize=10)
         Sizes.save()
 
 

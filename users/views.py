@@ -78,7 +78,8 @@ def adminSetting(request):
     TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
     SETSIZE   = SIZES.objects.all()[0].setSize
     PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-    return render(request, 'users/settings.html',{'timeLimit':TIMELIMITs,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+    GAPSIZE      = SIZES.objects.all()[0].GapSize
+    return render(request, 'users/settings.html',{'timeLimit':TIMELIMITs,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
 
 
 @login_required
@@ -90,7 +91,8 @@ def updateTimeLimit(request):
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
         else:
             TIME_LIMIT=newTimeLimit
             timelimit = TIMELIMIT.objects.all()[0]
@@ -100,12 +102,14 @@ def updateTimeLimit(request):
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
     else:
         TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
         SETSIZE   = SIZES.objects.all()[0].setSize
         PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+        GAPSIZE      = SIZES.objects.all()[0].GapSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
 
 
 
@@ -114,27 +118,33 @@ def updateTimeLimit(request):
 def updatePlaylistSize(request):
     if request.method == 'POST':
         newPlaylistSize = int(request.POST.get('playlistSize'))
-        if newPlaylistSize<10 or newPlaylistSize>100 or (newPlaylistSize%10)!=0 :
-            mess = "playlist size should be >=10 and <=100 and multiple of 10"
+        newGapSize      = int(request.POST.get('gapSize'))
+        if newPlaylistSize<10 or newPlaylistSize>100 or (newPlaylistSize%newGapSize)!=0 or newPlaylistSize/newGapSize>10 or newPlaylistSize/newGapSize<=0 :
+            mess = "playlist size should be >=10 and <=100 and multiple of " + str(newGapSize) + " and maximum there can be 10 ratings"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
         else:
             siz = SIZES.objects.all()[0]
             siz.playlistSize=newPlaylistSize
+            siz.GapSize=newGapSize
             siz.save()
+
             mess = "Playlist Size Updated Succesfully"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
 
     else:
         TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
         SETSIZE   = SIZES.objects.all()[0].setSize
         PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+        GAPSIZE      = SIZES.objects.all()[0].GapSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
 
 
 
@@ -148,7 +158,8 @@ def updateSetSize(request):
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
         else:
             siz = SIZES.objects.all()[0]
             siz.setSize=newSetSize
@@ -157,10 +168,13 @@ def updateSetSize(request):
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'mess':mess})
+            GAPSIZE      = SIZES.objects.all()[0].GapSize
+            return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
 
     else:
         TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
         SETSIZE   = SIZES.objects.all()[0].setSize
         PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
-        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE})
+        GAPSIZE      = SIZES.objects.all()[0].GapSize
+        return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
+

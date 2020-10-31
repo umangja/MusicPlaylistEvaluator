@@ -3,15 +3,95 @@
 {% load mathfilters %}
 
 {% block content %}
+  <style>
+  dl {
+    display: grid;
+    grid-template-columns:32ch auto;
+  }
+
+  dt {
+    grid-column-start: 1;
+  }
+
+  dd {
+    grid-column-start: 2;
+  }
+  </style>
     <h2> All Your Ratings </h2> <br>
 
     {% for rating in ratings %}
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ rating.userId.username }}</a>
+              {{ rating.userId.username }}
               <small class="text-muted">{{ rating.time|date:"F d, Y" }}</small>
             </div>
+            <dl>
+
+              <dt> Playlist Name  </dt>
+              <dd> {{ rating.playlistId.playlistName }} </dd>
+            
+              <dt> Algorithm Name  </dt>
+              <dd> {{ rating.algoId.algoName }} </dd>
+
+              <dt> Rating  </dt>
+              <dd>
+                {% with rating.R1 as R1 %} {% if R1 > 0 %}  {{ rating.R1 }} {% endif %} {% endwith %}
+                {% with rating.R2 as R2 %} {% if R2 > 0 %} , {{ rating.R2 }} {% endif %} {% endwith %}
+                {% with rating.R3 as R3 %} {% if R3 > 0 %} , {{ rating.R3 }} {% endif %} {% endwith %}
+                {% with rating.R4 as R4 %} {% if R4 > 0 %} , {{ rating.R4 }} {% endif %} {% endwith %}
+                {% with rating.R5 as R5 %} {% if R5 > 0 %} , {{ rating.R5 }} {% endif %} {% endwith %}
+                {% with rating.R6 as R6 %} {% if R6 > 0 %} , {{ rating.R6 }} {% endif %} {% endwith %}
+                {% with rating.R7 as R7 %} {% if R7 > 0 %} , {{ rating.R7 }} {% endif %} {% endwith %}
+                {% with rating.R8 as R8 %} {% if R8 > 0 %} , {{ rating.R8 }} {% endif %} {% endwith %}
+                {% with rating.R9 as R9 %} {% if R9 > 0 %} , {{ rating.R9 }} {% endif %} {% endwith %}
+                {% with rating.R10 as R10 %} {% if R10 > 0 %} , {{ rating.R10 }} {% endif %} {% endwith %}
+              </dd>
+
+              <dt> Average           </dt>
+              <dd> {{rating.average1|floatformat:2  }} </dd>
+
+              <dt> Weighted Average1 </dt>
+              <dd> {{rating.average2|floatformat:2  }} </dd>
+
+              <dt> Weighted Average2 </dt>
+              <dd> {{rating.average3|floatformat:2  }} </dd>
+
+              <dt> Standard Deviation </dt>
+              <dd> {{rating.standardDeviation|floatformat:2  }} </dd>
+
+              <dt> variance </dt>
+              <dd> {{rating.variance|floatformat:2  }} </dd>
+
+              <dt> Distribution Score </dt>
+              <dd> {{rating.distributionScore|floatformat:2  }} </dd>
+
+              <dt> Total Score </dt>
+              <dd> {{rating.totalScore|floatformat:2  }} </dd>
+
+
+            </dl>
+
+          </div>
+        </article>
+    {% endfor %}
+
+
+
+{% endblock content %}      
+
+
+{% comment %} {% block content %}
+    <h2> All Your Ratings </h2> <br>
+
+    {% for rating in ratings %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              {{ rating.userId.username }}
+              <small class="text-muted">{{ rating.time|date:"F d, Y" }}</small>
+            </div>
+
             <h6 class="mr-2"> Playlist Name : {{ rating.playlistId.playlistName }} </h6>
             <h6> Algorithm Name : {{ rating.algoId.algoName }} </h6>
             <h6> Ratings :
@@ -32,7 +112,6 @@
             std:{{rating.standardDeviation  }}</br></br>
             var:{{rating.variance  }}</br></br>
             DistributionScore:{{rating.distributionScore  }}</br></br>
-            CorrelationScore:{{rating.correlationScore  }}</br></br>
             totalScore:{{rating.totalScore}}</h6>
             </h6>
 
@@ -43,6 +122,6 @@
 
 
 
-{% endblock content %}             
+{% endblock content %}              {% endcomment %}
 
 

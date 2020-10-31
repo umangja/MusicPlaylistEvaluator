@@ -83,9 +83,10 @@ def evaluate(request):
         # print(songsName)
         # print(songsId)
         timeLimit = int(TIMELIMIT.objects.all()[0].timeLimit)
+        gapSize  =  int(SIZES.objects.all()[0].GapSize)
         print(playlistSize)
         print(SetSize)
-        return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit })
+        return render(request, 'evaluate/printSongsList.html',{'songs':songs,'songsAlbum':songsAlbum,'songsSinger':songsSinger,'songsLink':songsLink ,'playlistId':playlistId,'playlistName':playlistName,'algoName':algoName,'algoId':algoId,'songsName':songsName,'songsId':songsId,'timeLimit':timeLimit,'gapSize':gapSize })
 
     else:
         playlists = Playlists.objects.all()
@@ -205,10 +206,8 @@ def saveRatings(request):
 def showSummary(request):
     rating   = Ratings.objects.get(id=int(request.session['ratingId']))
     ordering = Ordering.objects.filter(ratingId=rating).order_by('position')
-    print(rating)
-    print(ordering)
-    print()
-    return render(request,'evaluate/showSummary.html',{'rating':rating,'ordering':ordering})
+    gapSize  =  int(SIZES.objects.all()[0].GapSize)
+    return render(request,'evaluate/showSummary.html',{'rating':rating,'ordering':ordering,'gapSize':gapSize})
 
 
 

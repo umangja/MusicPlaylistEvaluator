@@ -9,8 +9,11 @@ Please add to-do things in this file
 
 1. Format two Things
     1.1 song title 
-    1.2 view everyones rating page
-2. remove play/pause button
-3. Add parameter for "after how many songs rating should be asked"
-3. find evaluators
+    1.2 view everyones rating page : Done
+2. remove play/pause button :  Done
+3. Add parameter for "after how many songs rating should be asked" :  Done
+4. find evaluators : 
+
+
+5. take a look at find findDistributionScore function 
 

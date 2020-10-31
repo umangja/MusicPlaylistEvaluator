@@ -5,8 +5,6 @@
 
 {% block content %}
 
-
-
     <h3 style="color:red;"> INFO: <br>
      1. Please Rate how much random you find playlist not how much you liked it. <br>
      2. Rate between 1-5 with <br> 
@@ -28,23 +26,26 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="#">Song Title: {{ songsName|index:forloop.counter0 }}</a> <br>
-                <a class="mr-2" href="#">By: {{ songsSinger|index:forloop.counter0 }}</a> <br>
-                <a class="mr-2" href="#">In: {{ songsAlbum|index:forloop.counter0 }}</a> <br>
+                Song Title: {{ songsName|index:forloop.counter0 }} <br>
+                By: {{ songsSinger|index:forloop.counter0 }} <br>
+                In: {{ songsAlbum|index:forloop.counter0 }} <br>
             </div>
 
             <br>
 
             <audio controls id="aud{{forloop.counter0}}">
-                <source src={{ songsLink|index:forloop.counter0 }} type="audio/mpeg"> Your browser does not support the audio tag.
+                <source src={{ songsLink|index:forloop.counter0 }} type="audio/mpeg">  Your browser does not support the audio tag.
             </audio>
     
           </div>
         </article>
         
+        {% with gapSize as gapSize %}
+        
+        
 
-        {% if forloop.counter|divisibleby:10 %}
-            {% with cur=forloop.counter|div:10  %}
+        {% if forloop.counter|divisibleby:gapSize %}
+            {% with cur=forloop.counter|div:gapSize  %}
                 {% with curStr=cur|stringformat:"s" %}
                     {% with "rating"|add:curStr as name %}
                     <article class="media content-section">
@@ -59,6 +60,8 @@
                 {% endwith %}
             {% endwith %}
         {% endif %} 
+
+        {% endwith %}
     
     {% endfor %}
 
@@ -99,26 +102,19 @@
                 music.target.load();
             }
             });
+
+
+      aud[index].addEventListener("pause", function(music) { 
+          console.log("ok")
+          if(music.target.paused){
+              music.target.play()
+          }
+            });
     }
-
-
 
 </script>
 
 
 {% endblock content %}      
-
-
-
-
-
-
-
-
-                      {% comment %} setTimeout(function(){
-                            aud.load();
-                            alert("Audio with {{id}} Stop Successfully");
-                        },
-                        4000); {% endcomment %}
 
 
