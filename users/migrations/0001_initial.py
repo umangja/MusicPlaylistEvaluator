@@ -26,4 +26,9 @@ class Migration(migrations.Migration):
                 ('timeLimit', models.IntegerField(default=10)),
             ],
         ),
+       migrations.AddField(
+            model_name='sizes',
+            name='GapSize',
+            field=models.IntegerField(default=10),
+        ),
     ]
