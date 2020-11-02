@@ -160,3 +160,17 @@ input[type=submit]:hover {
   background-color: #f2f2f2;
   padding: 20px;
 } */
+
+
+dl {
+  display: grid;
+  grid-template-columns: 32ch auto;
+}
+
+dt {
+  grid-column-start: 1;
+}
+
+dd {
+  grid-column-start: 2;
+}

@@ -59,6 +59,9 @@ def findDistributionScore(songs):
     totalDifferentSongs = len(differentSongs)
     E = totalSongs/totalDifferentSongs
 
+    print(totalSongs)
+    print(totalDifferentSongs)
+
     sum = 0
     cnt = 0
     for song in differentSongs:
@@ -69,7 +72,7 @@ def findDistributionScore(songs):
     if(cnt!=0):
         sum = sum/cnt
         maxValue = (totalSongs-totalDifferentSongs+1)/E+1
-        return sum/maxValue
+        return 1-(sum/maxValue)
     else:
          return 0
 

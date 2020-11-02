@@ -38,12 +38,6 @@ def showAllRating(request):
 
         playlistNames.append(playlistName)
         algoNames.append(algoName)
-
-    print(ratings)
-    print(playlistNames)
-    print(algoNames)
-
-
     return render(request,'users/showAllRatingWithTimming.html',{'ratings':ratings, 'playlistNames':playlistNames, 'algoNames':algoNames,})
 
 @login_required
@@ -61,11 +55,6 @@ def showAllRatingForParticularUser(request):
 
             playlistNames.append(playlistName)
             algoNames.append(algoName)
-
-        print(ratings)
-        print(playlistNames)
-        print(algoNames)
-
 
         return render(request,'users/showAllRatingWithTimming.html',{'ratings':ratings, 'playlistNames':playlistNames, 'algoNames':algoNames,})
     else:
@@ -116,13 +105,13 @@ def updateTimeLimit(request):
 
 @login_required
 def updatePlaylistSize(request):
+    SETSIZE   = SIZES.objects.all()[0].setSize
     if request.method == 'POST':
         newPlaylistSize = int(request.POST.get('playlistSize'))
         newGapSize      = int(request.POST.get('gapSize'))
-        if newPlaylistSize<10 or newPlaylistSize>100 or (newPlaylistSize%newGapSize)!=0 or newPlaylistSize/newGapSize>10 or newPlaylistSize/newGapSize<=0 :
-            mess = "playlist size should be >=10 and <=100 and multiple of " + str(newGapSize) + " and maximum there can be 10 ratings"
+        if newPlaylistSize<10 or (newPlaylistSize%newGapSize)!=0 or newPlaylistSize/newGapSize>10 or newPlaylistSize/newGapSize<=0 or newPlaylistSize>SETSIZE :
+            mess = "playlist size should be >=10 and multiple of " + str(newGapSize) + " and maximum there can be 10 ratings and " +"Playlist Size should be less then Set Size"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
-            SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
             GAPSIZE      = SIZES.objects.all()[0].GapSize
             return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
@@ -131,17 +120,13 @@ def updatePlaylistSize(request):
             siz.playlistSize=newPlaylistSize
             siz.GapSize=newGapSize
             siz.save()
-
             mess = "Playlist Size Updated Succesfully"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
-            SETSIZE   = SIZES.objects.all()[0].setSize
             PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
             GAPSIZE      = SIZES.objects.all()[0].GapSize
             return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
-
     else:
         TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
-        SETSIZE   = SIZES.objects.all()[0].setSize
         PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
         GAPSIZE      = SIZES.objects.all()[0].GapSize
         return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
@@ -151,13 +136,13 @@ def updatePlaylistSize(request):
 
 @login_required
 def updateSetSize(request):
+    PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
     if request.method == 'POST':
         newSetSize = int(request.POST.get('setSize'))
-        if newSetSize<10 or newSetSize>3500  :
-            mess = "Set Size should be >=10 and <=3500"
+        if newSetSize<10 or newSetSize>3500 or newSetSize<PLAYLISTSIZE :
+            mess = "Set Size should be >=10 and <=3500 and >=PlaylistSize"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
-            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
             GAPSIZE      = SIZES.objects.all()[0].GapSize
             return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
         else:
@@ -167,14 +152,12 @@ def updateSetSize(request):
             mess = "Set size Updated Succesfully"
             TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
             SETSIZE   = SIZES.objects.all()[0].setSize
-            PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
             GAPSIZE      = SIZES.objects.all()[0].GapSize
             return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE,'mess':mess})
 
     else:
         TIMELIMITs = TIMELIMIT.objects.all()[0].timeLimit
         SETSIZE   = SIZES.objects.all()[0].setSize
-        PLAYLISTSIZE = SIZES.objects.all()[0].playlistSize
         GAPSIZE      = SIZES.objects.all()[0].GapSize
         return render(request, 'users/settings.html',{'timeLimit':TIMELIMIT,'setSize':SETSIZE,'playlistSize':PLAYLISTSIZE,'gapSize':GAPSIZE})
 

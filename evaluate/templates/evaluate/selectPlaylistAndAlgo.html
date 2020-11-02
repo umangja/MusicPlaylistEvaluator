@@ -15,7 +15,7 @@
         <label for="algos">Choose a Algorithm:</label>
         <select class="custom-select" id="algos" name="algos">
             {% for algo in algos %}
-                <option value="{{ algo.id }}">{{ algo.algoName }}</option>
+                <option value="{{ algo.id }}">Shruffling Algorithm - {{forloop.counter}}</option>
             {% endfor %}
         </select>
 

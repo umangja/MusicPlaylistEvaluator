@@ -15,5 +15,11 @@ Please add to-do things in this file
 4. find evaluators : 
 
 
-5. take a look at find findDistributionScore function 
+5. take a look at find findDistributionScore function : DONE
+5. making few changes in constraints in update : DONE
+6. make algorithm name unvisible :  DONE
 
+7. update rating meaning in musicPlayer/constants.py/ : DONE
+
+
+1.1, 4  left

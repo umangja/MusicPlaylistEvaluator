@@ -5,19 +5,47 @@
 
 {% block content %}
 
-    <h3 style="color:red;"> INFO: <br>
-     1. Please Rate how much random you find playlist not how much you liked it. <br>
-     2. Rate between 1-5 with <br> 
-     3. only first {{timeLimit}} seconds of songs will be played. <br> </h3> 
-     	<p>
-     		1 being something like S1 S1 S2 S2 S3 S3 (because it doesn't look random to human) <br>
-     		5 begin something like S1 S2 S3 S1 S2 S3 (because it looks random to humans)
- 		</p>
+<style>
+dl {
+    display: grid;
+    grid-template-columns: 32ch auto;
+}
 
-    <br>
-    <h3 style="color:DodgerBlue;" > Playlist Chosen  : {{ playlistName }} </h3>
-    <h3 style="color:DodgerBlue;"> Algorithm Chosen : {{ algoName }} </h3>
+dt {
+    grid-column-start: 1;
+}
 
+dd {
+    grid-column-start: 2;
+}
+</style>
+
+
+
+    <h3 style="color:red;"> INFOMATION : <br> </h3>
+    <ol type="1">
+        {% for info in infos %}
+            <li>{{ info }}</li>
+            {% if forloop.last %}
+                <ul>
+                    {% for ratingMeaning in ratingMeanings %}
+                        <li> {{ratingMeaning}} </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    </br>
+    
+    <dl>
+        <h3><dt> Playlist Chosen </dt></h3>
+        <dd> {{ playlistName }} </dd>
+
+        <h3><dt> Algorithm Chosen </dt></h3>
+        <dd> {{ algoName }} </d>
+    {% comment %} <h3 style="color:DodgerBlue;" > Playlist Chosen  : {{ playlistName }} </h3>
+    <h3 style="color:DodgerBlue;"> Algorithm Chosen : {{ algoName }} </h3> {% endcomment %}
+    </dl>
     <br>
 
     <form action="/saveRatings" method="POST">
@@ -72,7 +100,7 @@
     <input type="hidden" id="songsId" name="songsId" value={{songsId}}><br> 
     <input type="hidden" id="songs" name="songs" value={{songs}}><br> 
 
-    <input class="btn btn-outline-info" type="submit" value="Submit">
+    <input class="btn btn-outline-info" id="submitButton" type="submit" value="Submit">
     <br>
     <br>
     </form>
@@ -111,6 +139,12 @@
           }
             });
     }
+
+
+
+    $('submitButton').on('click', function() {
+        $(this).prop('disabled', true);
+    });
 
 </script>
 

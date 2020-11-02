@@ -4,6 +4,7 @@ from evaluate.models import *
 from django.contrib.auth import get_user_model
 from MusicPlayer.constants import *
 from users.models import *
+from MusicPlayer.constants import APP_DESCRIPTION,DEVELOPERS
 user = get_user_model()
 
 def home(request):  
@@ -29,4 +30,4 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})
+    return render(request, 'blog/about.html', {'title': 'About','description':APP_DESCRIPTION,'developers':DEVELOPERS})
