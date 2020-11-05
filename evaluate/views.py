@@ -136,11 +136,14 @@ def saveRatings(request):
         rating = Ratings.objects.get(id=ratingId.id)
 
         pos = 1
+        orderingList = []
         for songId in songsId:
             song = Songs.objects.get(id=songId)
             order = Ordering(songId=song,ratingId=rating,position=pos)
-            order.save()
+            orderingList.append(order)
             pos=pos+1
+        
+        Ordering.objects.bulk_create(orderingList)
         return redirect('/showSummary')
     else:
         return redirect('/')

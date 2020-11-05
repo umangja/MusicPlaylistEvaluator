@@ -20,6 +20,7 @@ Please add to-do things in this file
 6. make algorithm name unvisible :  DONE
 
 7. update rating meaning in musicPlayer/constants.py/ : DONE
-
+8. clicking twice on submit button leads to two entries in DB : SOlVED
+9. Inserting in ordering table should be faster : DONE
 
 1.1, 4  left
