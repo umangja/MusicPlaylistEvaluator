@@ -1,12 +1,13 @@
 import json
-# import random
+import random
 from evaluate.models import Songs
 
 Songs.objects.all().delete()
 with open('data.json') as json_file:
 	dat = json.load(json_file)
-
-garbage = ["(Bestwap)","(bestwap)","(bestwap.in)","(Bestwap.in)","Normal","Low","High","Quality","64","128","320","Kbps","Bestwap.in","2020","2013","2014","2015","2016","2017","2018","2019", "Mp3", "Songs","songs","Title","(Punjabi)(bestwap.in)","Bestwap","(Title","Track)","Track","Song","song"]
+numbers=["01","02","03","04","05","06","07","08","09"]
+garbage = ["(",")","BestWap.in","bestwap.in","Bestwap.in","BestWap.In","Bestwap.In","( Bestwap )","(Bestwap)","(bestwap)","( bestwap )","(bestwap.in)","( bestwap.in )","(bestwap.In)","( bestwap.In )","(Bestwap.in)","( Bestwap.in )","(Bestwap.In)","( Bestwap.In )","( BestWap )","(BestWap)","(bestWap)","( bestWap )","(bestWap.in)","( bestWap.in )","(bestWap.In)","( bestWap.In )","(BestWap.in)","( BestWap.in )","(BestWap.In)","( BestWap.In )","Normal","Low","High","Quality","64","128","320","Kbps","Bestwap.in","2020","2013","2014","2015","2016","2017","2018","2019", "Mp3", "Songs","songs","Title","(Punjabi)(bestwap.in)","Bestwap","(Title","Track)","Track","Song","song","-","()"]
+garbage.extend(numbers)
 def remspace(st):
 	temp = st.split(' ')
 	st=""
@@ -20,25 +21,51 @@ def remspace(st):
 
 def remunder(st):
 	
-	ls=[]
+	# ls=[]
+	# temp = st.split('_')
+	# for i in temp:
+	# 	ls.extend(i.split(' '))
+	# # print(ls)
+	# ans = ""
+	# for i in ls:
+	# 	if i not in garbage:
+	# 		for j in garbage:
+	# 			if j in i:
+	# 				i=i.replace(j,"")
+	# 		ans = ans+i
+	# 		ans = ans+" "
+	# if(len(ans)==0):
+	# 	return "Unknown"
+	# else:
+	# 	return ans
+	# st=st.lower()
+	for i in garbage:
+		if i in st:
+			st=st.replace(i,"")
+	ls = []
 	temp = st.split('_')
 	for i in temp:
 		ls.extend(i.split(' '))
-	# print(ls)
-	ans = ""
+
+	ans=""
 	for i in ls:
-		if i not in garbage:
-			if "(bestwap.in)" in i or "(Bestwap.in)" in i:
-				i = i[:-12]
-			ans = ans+i
-			ans = ans+" "
+		ans = ans+i
+		ans =ans+" "
 	if(len(ans)==0):
-		return "Unknown"
-	else:
-		return ans
+		ans="Unknown"
+
+	if " er " in ans:
+		ans=ans.replace(" er "," Higher ")
+	return ans 
 
 
 # print(remunder("an_ur_aj"))
+ar = "raj"
+pr = "anuraja"
+if ar in pr:
+	# print(111)
+	pr=pr.replace(ar,"")
+print(pr)
 
 i=0
 mp={"as":0,}
@@ -62,14 +89,30 @@ for item in dat:
 	itemlink = remspace(itemlink)
 	itemartist = remunder(itemartist)
 	itemtitle = remunder(itemtitle)
+
+	rmbl = []
+	rmbl.append(itemalbum)
+	rmbl.append(itemartist)
+	for j in rmbl:
+		if j in itemtitle:
+			itemtitle=itemtitle.replace(j,"")
 	key = itemtitle+itemalbum+itemartist
 	if(mp.get(key)):
 		continue
 	else:
 		mp[key]=1
-		# if(i>2000 and i<2300):
-			# print(itemtitle," --- ",itemalbum,"---", itemartist)
-		# print(itemlink)
+		temptitle=itemtitle.replace(" ","")
+		if temptitle=="":
+			itemtitle="Title Track"
+		if(len(itemalbum)==0):
+			itemalbum="Unknown"
+		if(len(itemartist)==0):
+			itemartist="Unknown"
+		num = random.randint(1,10)
+		if(i%num==0):
+			print(itemtitle," --- ",itemalbum,"---", itemartist)
+
+		print(itemlink)
 		if len(itemlink)<200:
 			tempsong = Songs(songTitle = itemtitle, songAlbum = itemalbum, songSinger= itemartist, link= itemlink)
 			tempsong.save()

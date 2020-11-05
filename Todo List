@@ -24,3 +24,7 @@ Please add to-do things in this file
 9. Inserting in ordering table should be faster : DONE
 
 1.1, 4  left
+
+
+3. load script in heroku
+4. delete staging deployement and branch

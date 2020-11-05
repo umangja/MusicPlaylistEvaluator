@@ -1,9 +1,23 @@
-Site deployed at :-    https://music-playlist-evaluator-stag.herokuapp.com/
-
+Site deployed at :-           https://music-playlist-evaluator-git.herokuapp.com/
+Database can be viewed at :-  https://music-playlist-evaluator-git.herokuapp.com/admin
 
 admin username : admin
-
 Admin password : admin
 
 
-Imp:    -1 is used to show that particular value does not exist means we are not calculating that values. ( -1 indicates NULL value )
+Constants can be changed at:-  MusicPlayer/constants.py
+
+
+
+To setup site at local host:-
+    1. clone this repo
+    2. run pip3 install -r requirements.txt
+    3. Make protgres user and Database with credential given in MusicPlayer/setting.py
+    4. python3 manage.py migrate --fake-initial
+    5. dump database db1
+    6. python3 manage.py shell
+        6.1 exec(open('script.py').read())
+    7. python3 manage.py runsever
+    
+    Site deployed at :-  http://127.0.0.1:8000/
+    Database can be viewed at :- http://127.0.0.1:8000/admin

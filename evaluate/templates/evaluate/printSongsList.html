@@ -55,8 +55,8 @@ dd {
           <div class="media-body">
             <div class="article-metadata">
                 Song Title: {{ songsName|index:forloop.counter0 }} <br>
-                By: {{ songsSinger|index:forloop.counter0 }} <br>
-                In: {{ songsAlbum|index:forloop.counter0 }} <br>
+                {% with songsSinger|index:forloop.counter0 as cur %} {% if cur|stringformat:"s" != "Unknown" %} By: {{ cur }} <br> {% endif %} {% endwith %}
+                {% with songsAlbum|index:forloop.counter0 as cur %} {% if cur|stringformat:"s" != "Unknown" %} In: {{ cur }} <br> {% endif %} {% endwith %}
             </div>
 
             <br>
