@@ -111,8 +111,8 @@ for item in dat:
 		num = random.randint(1,10)
 		if(i%num==0):
 			print(itemtitle," --- ",itemalbum,"---", itemartist)
-
 		print(itemlink)
+		itemlink.replace("bestwap2.in", "bestwap.im")
 		if len(itemlink)<200:
 			tempsong = Songs(songTitle = itemtitle, songAlbum = itemalbum, songSinger= itemartist, link= itemlink)
 			tempsong.save()

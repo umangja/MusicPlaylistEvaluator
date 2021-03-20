@@ -29,19 +29,21 @@ INFORMATION_ABOVE_SONG_LIST.append(INFORMATION_ABOVE_SONG_LIST_ITEM_LAST)
 
 RATINGS_MEANING = []
 
-RATING1_MEANING = "1 being something like S1 S1 S2 S2 S3 S3 S4 S4 (because it doesn't look random to human)"
+# RATING1_MEANING = "1 being something like S1 S1 S2 S2 S3 S3 S4 S4 (because it doesn't look random to human)"
+RATING1_MEANING = "Not Random"
+
 RATINGS_MEANING.append(RATING1_MEANING)
 
-RATING2_MEANING = "2 begin something like S1 S2 S4 S4 S3 S2 S2 S3 (because it looks random to humans)"
+RATING2_MEANING = "Very Little Randomness"
 RATINGS_MEANING.append(RATING2_MEANING)
 
-RATING3_MEANING = "3 begin something like S1 S2 S3 S3 S1 S2 S3 S3(because it looks random to humans)"
+RATING3_MEANING = "Somewhat Random"
 RATINGS_MEANING.append(RATING3_MEANING)
 
-RATING4_MEANING = "4 begin something like S1 S2 S3 S4 S1 S2 S3 S4(because it looks random to humans)"
+RATING4_MEANING = "Almost Random"
 RATINGS_MEANING.append(RATING4_MEANING)
 
-RATING5_MEANING = "5 begin something like S4 S2 S3 S1 S2 S4 S3 S1(because it looks random to humans)"
+RATING5_MEANING = "Random"
 RATINGS_MEANING.append(RATING5_MEANING)
 
 

@@ -7,24 +7,30 @@ Please add to-do things in this file
 
 
 
-1. Format two Things
-    1.1 song title 
-    1.2 view everyones rating page : Done
-2. remove play/pause button :  Done
-3. Add parameter for "after how many songs rating should be asked" :  Done
-4. find evaluators : 
 
+
+
+
+
+
+
+1. Format two Things
+    1.2 view everyones rating page : Done
+    1.1 song title : Done
+
+2. remove play/pause button :  Done
+
+3. Add parameter for "after how many songs rating should be asked" :  Done
 
 5. take a look at find findDistributionScore function : DONE
-5. making few changes in constraints in update : DONE
-6. make algorithm name unvisible :  DONE
 
-7. update rating meaning in musicPlayer/constants.py/ : DONE
-8. clicking twice on submit button leads to two entries in DB : SOlVED
-9. Inserting in ordering table should be faster : DONE
+6. making few changes in constraints in update : DONE
+7. make algorithm name unvisible :  DONE
+8. update rating meaning in musicPlayer/constants.py/ : DONE
 
-1.1, 4  left
+Problem Noticed:
+    9. clicking twice on submit button leads to two entries in DB : SOlVED
+    10. Inserting in ordering table should be faster : DONE
 
+11. app deployed using github
 
-3. load script in heroku
-4. delete staging deployement and branch
